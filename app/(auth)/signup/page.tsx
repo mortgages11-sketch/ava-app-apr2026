@@ -1,10 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 
-export default function SignupPage() {
+function SignupForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan') ?? 'starter';
@@ -54,31 +54,49 @@ export default function SignupPage() {
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">I am a…</label>
               <select value={role} onChange={e => setRole(e.target.value)}
                 className="w-full h-11 px-4 rounded-xl border-2 border-slate-200 text-slate-800 font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-50 transition-all">
-                <option value="realtor">Real Estate Agent / Realtor</option>
-                <option value="loan_officer">Loan Officer / Mortgage Broker</option>
-                <option value="team_admin">Team Lead / Broker</option>
+                <option value="realtor">Real Estate Agent</option>
+                <option value="loan_officer">Loan Officer</option>
+                <option value="broker">Broker / Team Lead</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Work Email</label>
-              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@yourbrokerage.com" required
+              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Email Address</label>
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required
                 className="w-full h-11 px-4 rounded-xl border-2 border-slate-200 text-slate-800 font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-50 transition-all" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">Password</label>
-              <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Min. 8 characters" required minLength={8}
+              <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required
                 className="w-full h-11 px-4 rounded-xl border-2 border-slate-200 text-slate-800 font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-50 transition-all" />
+              <p className="text-slate-400 text-xs mt-1">Minimum 8 characters</p>
             </div>
             <button type="submit" disabled={loading}
               className="w-full h-12 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
-              {loading ? <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Creating account…</> : 'Create My Account →'}
+              {loading ? <><div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /><span>Creating account…</span></> : 'Create Account'}
             </button>
           </form>
+          <p className="text-center text-slate-500 text-sm mt-6">Already have an account?{' '}
+            <Link href="/login" className="text-blue-600 font-semibold hover:underline">Sign in</Link>
+          </p>
         </div>
-        <p className="text-center mt-6 text-sm text-slate-500">
-          Already have an account? <Link href="/login" className="text-blue-600 font-semibold hover:text-blue-700">Sign in</Link>
+        <p className="text-center text-slate-400 text-xs mt-6">
+          By creating an account you agree to our{' '}
+          <a href="#" className="hover:text-slate-600 underline">Terms</a> and{' '}
+          <a href="#" className="hover:text-slate-600 underline">Privacy Policy</a>.
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <SignupForm />
+    </Suspense>
   );
 }
