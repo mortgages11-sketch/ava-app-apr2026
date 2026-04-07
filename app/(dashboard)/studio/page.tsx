@@ -92,7 +92,7 @@ export default async function StudioPage() {
             {/* Script textarea */}
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Your Script</label>
-              <textarea rows={8} placeholder={`Type your script here…\n\nExample: "Just listed! I'm excited to present this stunning 4-bedroom home at 123 Maple Street. Priced at $485,000 {`-call me today for a private showing."`}
+              <textarea rows={8} placeholder={`Type your script here…\n\nExample: "Just listed! I'm excited to present this stunning 4-bedroom home at 123 Maple Street. Priced at $485,000 — call me today for a private showing."`}
                 className="w-full px-4 py-3.5 rounded-xl border-2 border-slate-200 bg-white text-slate-800 text-base leading-relaxed placeholder:text-slate-400 resize-none focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-50 transition-all" />
             </div>
 
