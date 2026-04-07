@@ -39,7 +39,7 @@ export default async function LibraryPage() {
                   {video.status === 'complete' && video.output_url && (
                     <div className="flex gap-2 mt-3">
                       <a href={video.output_url} download className="flex-1 text-center text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 py-2 rounded-lg transition-colors">⬇ Download</a>
-                      <button onClick={() => navigator.clipboard.writeText(video.output_url!)} className="text-xs font-semibold text-blue-600 border border-blue-200 bg-blue-50 hover:bg-blue-100 py-2 px-3 rounded-lg transition-colors">Share ↗</button>
+                      <a href={video.output_url} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-blue-600 border border-blue-200 bg-blue-50 hover:bg-blue-100 py-2 px-3 rounded-lg transition-colors">Share ↗</a>
                     </div>
                   )}
                 </div>
